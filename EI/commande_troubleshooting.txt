@@ -1,0 +1,51 @@
+show interfaces
+ping
+traceroute
+debug
+show log
+shwo running config
+
+ip domain-name nom_de_domaine
+username nom_dutilisateur privilege 15 password mot_de_passe
+interface nom_interface
+ip address adresse_ip masque_sous_réseau
+no shutdown
+ip dns server
+ip dns name-server nom_de_domaine adresse_IP
+ip host nom_hôte adresse_IP
+
+interface FastEthernet 0/1
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+ip dhcp pool [nom_de_la_piscine_dhcp]
+network 192.168.1.0 255.255.255.0
+default-router 192.168.1.1
+dns-server 8.8.8.8 4.2.2.2
+exit
+interface FastEthernet 0/1
+ip address dhcp
+
+interface WAN
+ip address 203.0.113.1 255.255.255.0
+no shutdown
+ip route 0.0.0.0 0.0.0.0 203.0.113.254
+
+ip nat inside source list nat-acl interface WAN overload
+access-list nat-acl permit ip 192.168.1.0 0.0.0.255 any
+ping 8.8.8.8
+
+vtp mode server
+vtp domain <domain-name>
+vtp version 2
+vlan <vlan-number>
+name <vlan-name>
+
+interface fastethernet0/1
+switchport mode trunk
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 10,20,30
+
+username <username> password <password>
+enable secret <password>
+line vty 0 15
+login authentication <authentication-method>
